@@ -1,4 +1,4 @@
-![repo screen](https://user-images.githubusercontent.com/66588352/220696317-46af52a3-4c5d-4127-aeb0-b194b21745da.png)
+
 
 # Getting Started React QR Code Genrator
 
