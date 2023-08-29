@@ -2,6 +2,9 @@
 
 # Getting Started React QR Code Genrator
 
+![Screen Shot 2023-08-29 at 15 18 34](https://github.com/mahmoud-bebars/react-qrCode-genrate/assets/66588352/b629a165-ee5e-4697-9405-a21c712cbffb)
+
+
 This project was bootstrapped with [Vite](https://vitejs.dev).
 
 but it's coustomized for Faster Developing Start By Me
