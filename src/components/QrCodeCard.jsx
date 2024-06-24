@@ -1,31 +1,18 @@
-import { useEffect, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Input,
-  Checkbox,
-  Button,
-  Alert,
-} from "@material-tailwind/react";
-
+import { useState } from "react";
+import AlertMessage from "./shared/AlertMessage";
 import QRCode from "qrcode";
+
 import {
   XMarkIcon,
   ArrowDownTrayIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
+
 const QrCodeCard = () => {
   const [url, setUrl] = useState("");
   const [fileName, setFleName] = useState("");
   const [dataUrl, setDataUrl] = useState("");
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
-    variant: "red",
-  });
+  const [message, setMessage] = useState("");
   const qrCodeGerate = () => {
     try {
       if (url === "") throw new Error("Please Enter Vaild Url");
@@ -38,21 +25,9 @@ const QrCodeCard = () => {
         console.log(dataUrl);
       });
     } catch (error) {
-      setAlert({
-        show: true,
-        message: error.message,
-        variant: "red",
-      });
+      setMessage(["bg-red-600/20", error.message]);
     }
   };
-
-  useEffect(() => {
-    if (alert.show) {
-      setTimeout(() => {
-        setAlert({ show: false, message: "", variant: "red" });
-      }, 5000);
-    }
-  }, [alert]);
 
   const clear = () => {
     setUrl("");
@@ -60,105 +35,87 @@ const QrCodeCard = () => {
   };
 
   return (
-    <Card className="w-96">
-      <CardHeader variant="gradient" color="gray" className="">
+    <div className="w-full md:w-[70%] lg:w-[50%] bg-white shadow-xl rounded-lg p-3 z-10 space-y-4">
+      <div className="w-full bg-blue-400 rounded-xl shadow-lg -mt-20">
         {dataUrl !== "" ? (
-          <div className="flex flex-col items-center p- justify-center">
-            <img src={dataUrl} className="p-5 rounded-3xl" alt="qr-code" />
+          <div className="flex flex-col items-center p-2 justify-center">
+            <img src={dataUrl} className="p-2 rounded-3xl" alt="qr-code" />
+            <p className="text-sm font-thin italic text-white">https://{url}</p>
           </div>
         ) : (
           <div className="flex flex-col items-center p-10 justify-center">
-            <Typography variant="small" color="white" className="m-0 uppercase">
-              Genrate
-            </Typography>
-            <Typography variant="h3" color="white">
-              Qr Code
-            </Typography>
+            <p className="text-2xl text-white">Generate</p>
+
+            <p className="text-xl text-white font-bold">Qr Code</p>
           </div>
         )}
-      </CardHeader>
-      <CardBody className="flex flex-col gap-4">
+      </div>
+      <div className="flex flex-col gap-4">
         {dataUrl !== "" ? (
-          <Input
-            type="url"
+          <input
+            type="text"
+            name="first-name"
             placeholder="Enter file name to Download"
             size="lg"
             value={fileName}
             onChange={(e) => setFleName(e.target.value)}
+            className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
         ) : (
-          <Input
-            type="url"
-            placeholder="Enter a valid URL"
-            size="lg"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            onKeyUp={(e) => {
-              e.key === "Enter" && qrCodeGerate();
-            }}
-          />
+          <div className="w-full flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 ">
+            <span className="w-fit flex select-none items-center pl-3 text-gray-500 sm:text-sm">
+              https://
+            </span>
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyUp={(e) => {
+                e.key === "Enter" && qrCodeGerate();
+              }}
+              autoComplete="username"
+              className="w-full block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus-within:ring-0  focus-within:ring-blue-100 sm:text-sm sm:leading-6"
+              placeholder="www.google.com"
+            />
+          </div>
         )}
-      </CardBody>
-      <CardFooter className="pt-0">
+      </div>
+      <div className="my-6 flex items-center justify-between gap-x-2">
         {dataUrl === "" ? (
-          <Button
-            variant="gradient"
-            fullWidth
+          <button
+            type="submit"
+            className="w-[100%] flex items-center justify-center gap-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             onClick={() => qrCodeGerate()}
-            className="w-full flex items-center justify-center gap-2"
           >
             <QrCodeIcon className="w-5 h-5" />
             <span>Generate</span>
-          </Button>
+          </button>
         ) : (
-          <div className="flex items-center gap-2 mb-2">
-            <Button
-              variant="gradient"
-              color="gray"
+          <>
+            {" "}
+            <button
+              type="button"
+              className="w-[30%] flex items-center justify-center gap-2 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-300 rounded-md px-3 py-2"
               onClick={() => clear()}
-              className=" flex items-center justify-center gap-2"
             >
               <XMarkIcon className="w-5 h-5" />
               <span>Clear</span>
-            </Button>
-            <a download="qrCode.png" href={dataUrl} className="w-full">
-              <Button
-                variant="gradient"
-                color="blue-gray"
-                className="w-full flex items-center justify-center gap-2"
+            </button>
+            <a download="qrCode.png" href={dataUrl} className="w-[100%]">
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline "
+                onClick={() => qrCodeGerate()}
               >
                 <ArrowDownTrayIcon className="w-5 h-5" />
                 <span> Download</span>
-              </Button>{" "}
+              </button>
             </a>
-          </div>
+          </>
         )}
-        <Alert
-          className="mt-2 mb-1 h-10 flex items-center"
-          variant="outlined"
-          open={alert.show === true ? true : false}
-          color={alert.variant}
-        >
-          <div className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-              />
-            </svg>
-            <span>{alert.message}</span>
-          </div>
-        </Alert>
-      </CardFooter>
-    </Card>
+      </div>
+      <AlertMessage message={message} setMessage={setMessage} />
+    </div>
   );
 };
 
