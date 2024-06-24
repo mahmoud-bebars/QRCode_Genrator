@@ -1,20 +1,24 @@
 {
-  "name": "temp",
-  "version": "0.1.0",
+  "name": "react-qr-genrator",
+  "description": "This react app is a simple & easy way to genrate QR Codes faster with just links & extands for many future features",
+  "version": "1.10.0",
   "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "clean:build": "rm -rf ./build",
+    "clean:cache": "rm -rf ./node_modules/.cache/gh-pages",
+    "clean:node": "rm -rf ./node_modules",
+    "clean": "rm -rf ./build && rm -rf ./node_modules",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@material-tailwind/react": "^2.1.1",
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite-plugin-svgr": "^3.2.0"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -37,7 +41,6 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.4",
     "autoprefixer": "^10.4.14",
-    "gh-pages": "^5.0.0",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.7"
