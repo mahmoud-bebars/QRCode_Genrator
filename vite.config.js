@@ -17,7 +17,7 @@ export default defineConfig(() => {
       "process.env": {},
     },
     build: {
-      outDir: "build",
+      outDir: "dist",
     },
     plugins: [react(), svgr({ svgrOptions: { icon: true } })],
   };
