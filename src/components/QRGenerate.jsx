@@ -8,7 +8,7 @@ import {
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
 
-const QrCodeCard = () => {
+const QRGenerate = () => {
   const [url, setUrl] = useState("");
   const [fileName, setFleName] = useState("");
   const [dataUrl, setDataUrl] = useState("");
@@ -36,7 +36,7 @@ const QrCodeCard = () => {
 
   return (
     <div className="w-full md:w-[70%] lg:w-[50%] bg-white shadow-xl rounded-lg p-3 z-10 space-y-4">
-      <div className="w-full bg-blue-400 rounded-xl shadow-lg -mt-20">
+      <div className="w-full bg-blue-400 rounded-xl shadow-lg">
         {dataUrl !== "" ? (
           <div className="flex flex-col items-center p-2 justify-center">
             <img src={dataUrl} className="p-2 rounded-3xl" alt="qr-code" />
@@ -44,9 +44,7 @@ const QrCodeCard = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center p-10 justify-center">
-            <p className="text-2xl text-white">Generate</p>
-
-            <p className="text-xl text-white font-bold">Qr Code</p>
+            <p className="text-2xl text-white">Generate QR</p>
           </div>
         )}
       </div>
@@ -119,4 +117,4 @@ const QrCodeCard = () => {
   );
 };
 
-export default QrCodeCard;
+export default QRGenerate;
